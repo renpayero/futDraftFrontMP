@@ -1,7 +1,9 @@
 import React from 'react'
+import useProductos from '../hooks/useProductos';
 
 export default function Producto(producto) {
     const {nombre, precio, imagen} = producto.producto;
+    const { handleClickModal, handleSetProducto } = useProductos();
     
   return (
     <div className='border p-3 shadow bg-white cursor-pointer'>
@@ -20,6 +22,12 @@ export default function Producto(producto) {
             <button
                 type='button'
                 className='bg-blue-500 text-white w-full mt-5 p-2 rounded hover:bg-blue-700 font-bold uppercase'
+                onClick={() =>
+                {
+                    handleClickModal();
+                    handleSetProducto(producto.producto); 
+                }
+                }
             >
                 Agregar al carrito
             </button>

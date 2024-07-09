@@ -1,8 +1,10 @@
-import React from 'react'
-import { categorias } from '../data/categorias.js'
 import Categoria from './Categoria.jsx'
+import useProductos from '../hooks/useProductos'
 
 export default function Sidebar() {
+
+    const { categorias } = useProductos()
+
   return (
     <aside className='md:w-72'>
         <div className='p-4'>

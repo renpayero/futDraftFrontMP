@@ -10,6 +10,7 @@ const ProductosProvider = ({ children }) => {
     const [categoriaActual, setCategoriaActual] = useState(categorias[0]);
     const [producto, setProducto] = useState({});
     const [modal, setModal] = useState(false);
+    const [pedido, setPedido] = useState([]);
 
     const handleClickCategoria = (idCategoria) => {
         setCategoriaActual(categorias.find(categoria => categoria.id === idCategoria));
@@ -24,6 +25,10 @@ const ProductosProvider = ({ children }) => {
         setProducto(producto);
     }
 
+    const handleAgregarProducto = ({categoria_id, imagen, ...producto}) => {
+        setPedido([...pedido, producto]);
+    }
+
     return (
         <ProductosContext.Provider 
             value={{
@@ -33,7 +38,9 @@ const ProductosProvider = ({ children }) => {
                 modal,
                 handleClickModal,
                 handleSetProducto,
-                producto
+                producto,
+                pedido,
+                handleAgregarProducto
             }}
         >
             {children}

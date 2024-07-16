@@ -26,7 +26,12 @@ const ProductosProvider = ({ children }) => {
     }
 
     const handleAgregarProducto = ({categoria_id, imagen, ...producto}) => {
-        setPedido([...pedido, producto]);
+        if(pedido.some(pedidoState => pedidoState.id === producto.id)){
+            const productoActualizado = pedido.map(pedidoState => pedidoState.id === producto.id ? producto : pedidoState);
+            setPedido(productoActualizado);
+          } else {
+            setPedido([...pedido, producto]);
+          }
     }
 
     return (

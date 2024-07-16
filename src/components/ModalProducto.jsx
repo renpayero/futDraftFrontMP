@@ -1,10 +1,19 @@
 import React from "react";
 import useProductos from "../hooks/useProductos";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 export default function ModalProducto() {
-  const { handleClickModal, producto, handleAgregarProducto } = useProductos();
+  const { handleClickModal, producto, handleAgregarProducto, pedido } = useProductos();
   const [cantidad, setCantidad] = useState(1);
+  const [edicion, setEdicion] = useState(false);
+
+  useEffect(() => {
+      if(pedido.some(pedidoState => pedidoState.id === producto.id)){
+        const productoEdicion = pedido.find(pedidoState => pedidoState.id === producto.id);
+        setCantidad(productoEdicion.cantidad);
+        setEdicion(true);
+      }
+    }, [pedido]);
 
 
   return (
@@ -66,22 +75,14 @@ export default function ModalProducto() {
           <button
             type="button"
             className="bg-blue-600 hover:bg-blue-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
-            onClick={() => handleAgregarProducto({...producto, cantidad})}
+            onClick={() => {
+              handleAgregarProducto({...producto, cantidad});
+              handleClickModal();
+            }}
           >
-            Agregar al carrito
+            {edicion ? "Editar" : "Agregar"}
           </button>
       </div>
     </div>
   );
 }
-
-
-{/* <p className="text-center text-2xl text-green-600 font-bold">
-Producto Agregado!
-</p>
-<button
-onClick={() => handleClickModal()}
-className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700"
->
-Cerrar
-</button> */}

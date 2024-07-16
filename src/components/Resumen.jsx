@@ -1,5 +1,6 @@
 import React from 'react'
 import useProductos from '../hooks/useProductos'
+import ResumenProducto from './ResumenProducto'
 
 export default function Resumen() {
 
@@ -11,13 +12,19 @@ export default function Resumen() {
         Mi Pedido
       </h1>
       <p className='text-lg my-5'>
-        Aqui podraws ver el Resumen y totales de tu pedido
+        Aquí podrás encontrar los productos de tu pedido
       </p>
       <div className='py-10'>
         {pedido.length === 0 ? (
           <p className='text-center text-2xl'> No hay productos en el pedido</p>
           ) : (
-            <p> Si hay productos en el pedido</p>
+            pedido.map(producto => (
+              <ResumenProducto
+                key={producto.id} 
+                producto={producto}
+              />
+            )
+          )
           )}
       </div>
       <p className='text-xl mt-10'>

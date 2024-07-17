@@ -4,7 +4,9 @@ import ResumenProducto from './ResumenProducto'
 
 export default function Resumen() {
 
-  const { pedido } = useProductos()
+  const { pedido, total } = useProductos()
+
+  const comprobarPedido = () => pedido.length === 0
 
   return (
     <aside className='w-72 h-screen overflow-y-scroll p-5 '>
@@ -29,13 +31,15 @@ export default function Resumen() {
       </div>
       <p className='text-xl mt-10'>
         Total a pagar: {""}
+        <span className='font-bold'>$ {total}</span>
       </p>
       <form className='w-full'>
         <div className='mt-5'>
             <input
               type="submit"
-              className='bg-blue-500 w-full p-2 text-white uppercase font-bold hover:bg-blue-700 rounded cursor-pointer'
+              className={`${comprobarPedido() ? 'bg-indigo-100' : 'bg-blue-500 hover:bg-blue-800'} w-full p-2 text-white uppercase font-bold rounded cursor-pointer`}
               value='Realizar Pedido'
+              disabled={comprobarPedido()}
             />
         </div>
       </form>

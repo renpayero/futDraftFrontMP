@@ -2,13 +2,14 @@ import React, { createContext, useState, useEffect } from 'react';
 import { categorias as categoriasDB } from '../data/categorias';
 import { productos as productosDB } from '../data/productos';
 import { toast} from "react-toastify";
+import axios from "axios";
 
 const ProductosContext = createContext();
 
 const ProductosProvider = ({ children }) => {
 
     const [categorias, setCategorias] = useState(categoriasDB);
-    const [categoriaActual, setCategoriaActual] = useState(categorias[0]);
+    const [categoriaActual, setCategoriaActual] = useState({});
     const [producto, setProducto] = useState({});
     const [modal, setModal] = useState(false);
     const [pedido, setPedido] = useState([]);
@@ -25,6 +26,20 @@ const ProductosProvider = ({ children }) => {
         }
         calcularTotal();
     }, [pedido]);
+
+    const obtenerCategorias = async () => {
+        try {
+            const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/categorias`);
+            setCategorias(data.data);
+            setCategoriaActual(data.data[0]);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        obtenerCategorias();
+    }, []);
 
     const handleClickCategoria = (idCategoria) => {
         setCategoriaActual(categorias.find(categoria => categoria.id === idCategoria));

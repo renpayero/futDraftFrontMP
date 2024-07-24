@@ -5,27 +5,27 @@ const categorias = [
       id: 1
   },
   {
-      icono: "balones",
+      icono: "balon",
       nombre: "Balones",
       id: 2
   },
   {
-      icono: "botines",
+      icono: "botin",
       nombre: "Botines",
       id: 3
   },
   {
-      icono: "guantes",
+      icono: "guante",
       nombre: "Guantes",
       id: 4
   },
   {
-      icono: "canilleras",
+      icono: "canillera",
       nombre: "Canilleras",
       id: 5
   },
   {
-      icono: "accesorios",
+      icono: "accesorio",
       nombre: "Accesorios",
       id: 6
   }

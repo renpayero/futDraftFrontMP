@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { categorias as categoriasDB } from '../data/categorias';
-import { productos as productosDB } from '../data/productos';
 import { toast} from "react-toastify";
-import axios from "axios";
+import clienteAxios from '../config/axios';
 
 const ProductosContext = createContext();
 
@@ -29,9 +28,18 @@ const ProductosProvider = ({ children }) => {
 
     const obtenerCategorias = async () => {
         try {
-            const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/categorias`);
+            const {data} = await clienteAxios('/api/categorias');
             setCategorias(data.data);
             setCategoriaActual(data.data[0]);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const obtenerTodosLosProductos = async () => {
+        try {
+            const {data} = await clienteAxios('/api/productos');
+            console.log(data);
         } catch (error) {
             console.log(error);
         }

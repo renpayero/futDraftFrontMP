@@ -6,6 +6,7 @@ import Modal from "react-modal"
 import ModalProducto from "../components/ModalProducto"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { useAuth } from "../hooks/useAuth"
 
 const customStyles = {
     content: {
@@ -23,7 +24,11 @@ Modal.setAppElement("#root");
 
 export default function Layout() {
 
-  const { modal, handleClickModal } = useProductos()
+
+  const { user, error } = useAuth({middleware: 'auth'})
+  const { modal } = useProductos()
+
+  
 
   return (
     <>

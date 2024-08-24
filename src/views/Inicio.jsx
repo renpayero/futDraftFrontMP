@@ -12,7 +12,6 @@ export default function Inicio() {
   //consulta SWR
   const fetcher = () => clienteAxios('/api/productos').then(data => data.data)
   const { data, error, isLoading } = useSWR( '/api/productos', fetcher, { refreshInterval: 1000 } )
-  console.log(data, error, isLoading)
   
   if (isLoading) return 'Cargando...'
 

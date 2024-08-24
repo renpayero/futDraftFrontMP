@@ -1,9 +1,11 @@
 import Categoria from './Categoria.jsx'
 import useProductos from '../hooks/useProductos'
+import { useAuth } from '../hooks/useAuth.js'
 
 export default function Sidebar() {
 
     const { categorias } = useProductos()
+    const { logout, user } = useAuth({middleware: 'auth'})
 
   return (
     <aside className='md:w-72'>
@@ -14,6 +16,13 @@ export default function Sidebar() {
                 alt='FutDraft Logo'
             />
         </div>
+
+        <p
+            className='my-10 text-xl text-center font-bold'
+        >
+            Hola, {user?.name}!
+        </p>
+
         <div className='mt-10'>
             {categorias.map((categoria) => (
                 <Categoria
@@ -26,8 +35,9 @@ export default function Sidebar() {
             <button
                 type='button'
                 className='w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700'
+                onClick={logout}
             >
-                Cancelar Carrito
+                Cerrar Sesión
             </button>
         </div>
     </aside>

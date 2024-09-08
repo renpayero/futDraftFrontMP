@@ -94,6 +94,24 @@ const ProductosProvider = ({ children }) => {
         setModal(!modal);
     }
 
+    const handleSumbitNuevaOrden = async () => {
+        try{
+            await clienteAxios.post('/api/pedidos', 
+                {
+                    total,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('AUTH_TOKEN')}`
+                    }
+                }
+            );
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
     return (
         <ProductosContext.Provider 
             value={{
@@ -108,7 +126,8 @@ const ProductosProvider = ({ children }) => {
                 handleAgregarProducto,
                 handleEditarCantidad,
                 handleEliminarProducto,
-                total
+                total,
+                handleSumbitNuevaOrden
             }}
         >
             {children}

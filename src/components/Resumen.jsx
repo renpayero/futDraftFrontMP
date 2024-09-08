@@ -4,9 +4,14 @@ import ResumenProducto from './ResumenProducto'
 
 export default function Resumen() {
 
-  const { pedido, total } = useProductos()
+  const { pedido, total, handleSumbitNuevaOrden } = useProductos()
 
   const comprobarPedido = () => pedido.length === 0
+
+  const handleSumbit = e => {
+    e.preventDefault()
+    handleSumbitNuevaOrden()
+  }
 
   return (
     <aside className='w-72 h-screen overflow-y-scroll p-5 '>
@@ -33,7 +38,10 @@ export default function Resumen() {
         Total a pagar: {""}
         <span className='font-bold'>$ {total}</span>
       </p>
-      <form className='w-full'>
+      <form 
+        className='w-full'
+        onSubmit={handleSumbit}
+      >
         <div className='mt-5'>
             <input
               type="submit"

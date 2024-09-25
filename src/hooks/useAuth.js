@@ -2,6 +2,8 @@ import clienteAxios from "../config/axios";
 import useSWR from "swr";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 
 export const useAuth = ({middleware, url}) => {
 
@@ -65,11 +67,31 @@ export const useAuth = ({middleware, url}) => {
         }
     }, [user, error])
 
+    const useAuthAdmin = () => {
+        const [auth, setAuth] = useState(null);
+    
+        useEffect(() => {
+            const fetchAuth = async () => {
+                try {
+                    const response = await clienteAxios.get('/api/user');
+                    setAuth(response.data);
+                } catch (error) {
+                    setAuth(null);
+                }
+            };
+    
+            fetchAuth();
+        }, []);
+    
+        return { auth };
+    }
+
     return {
         login,
         logout,
         register,
         user,
-        error
+        error,
+        useAuthAdmin
     }
 }

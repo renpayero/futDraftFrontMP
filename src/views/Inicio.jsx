@@ -1,5 +1,4 @@
 import React from 'react'
-import { productos as data } from '../data/productos.js'
 import Producto  from '../components/Producto.jsx'
 import useProductos from '../hooks/useProductos.js'
 import useSWR from 'swr'
@@ -12,7 +11,6 @@ export default function Inicio() {
   //consulta SWR
   const fetcher = () => clienteAxios('/api/productos').then(data => data.data)
   const { data, error, isLoading } = useSWR( '/api/productos', fetcher, { refreshInterval: 1000 } )
-  
   if (isLoading) return 'Cargando...'
 
 
@@ -25,7 +23,7 @@ export default function Inicio() {
         Elige y personaliza tu pedido a continuación
       </p>
 
-      <div className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
+      <div className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 h-full'>
         {productos.map(producto => (
           <Producto
             key={producto.id}

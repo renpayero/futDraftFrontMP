@@ -11,6 +11,7 @@ const ProductosProvider = ({ children }) => {
     const [categoriaActual, setCategoriaActual] = useState({});
     const [producto, setProducto] = useState({});
     const [modal, setModal] = useState(false);
+    const [modalCrearProducto, setModalCrearProducto] = useState(false);
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0);
 
@@ -56,6 +57,10 @@ const ProductosProvider = ({ children }) => {
 
     const handleClickModal = () => {
         setModal(!modal);
+    }
+
+    const handleClickModalCrearProducto = () => {
+        setModalCrearProducto(!modalCrearProducto);
     }
 
     const handleSetProducto = (producto) => {
@@ -122,6 +127,20 @@ const ProductosProvider = ({ children }) => {
         }
     }
 
+    const handleCrearProducto = async (producto) => {
+        try{
+            const {data} = await clienteAxios.post('/api/productos', producto);
+            console.log(data);
+            toast.success(data.message);
+            setTimeout(() => {
+                setModal(false);
+            });
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
     return (
         <ProductosContext.Provider 
             value={{
@@ -137,7 +156,10 @@ const ProductosProvider = ({ children }) => {
                 handleEditarCantidad,
                 handleEliminarProducto,
                 total,
-                handleSumbitNuevaOrden
+                handleSumbitNuevaOrden,
+                handleCrearProducto,
+                modalCrearProducto,
+                handleClickModalCrearProducto,
             }}
         >
             {children}

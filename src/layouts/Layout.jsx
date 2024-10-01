@@ -27,8 +27,7 @@ export default function Layout() {
 
   const { user, error } = useAuth({middleware: 'auth'})
   const { modal } = useProductos()
-
-  
+  console.log(modal)
 
   return (
     <>
@@ -40,10 +39,11 @@ export default function Layout() {
 
         <Resumen />  
       </div>
-
+  
             <Modal isOpen={modal} style={customStyles}>
                 <ModalProducto />
             </Modal>
+
             <ToastContainer />
     </>
   )

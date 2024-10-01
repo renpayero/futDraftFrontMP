@@ -6,7 +6,6 @@ export default function ModalProducto() {
   const { handleClickModal, producto, handleAgregarProducto, pedido } = useProductos();
   const [cantidad, setCantidad] = useState(1);
   const [edicion, setEdicion] = useState(false);
-
   useEffect(() => {
       if(pedido.some(pedidoState => pedidoState.id === producto.id)){
         const productoEdicion = pedido.find(pedidoState => pedidoState.id === producto.id); 

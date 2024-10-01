@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth.js'
 
 export default function Sidebar() {
 
-    const { categorias } = useProductos()
+    const { categorias, producto } = useProductos()
     const { logout, user } = useAuth({middleware: 'auth'})
 
   return (

@@ -19,7 +19,7 @@ const customStyles = {
 };
 
 export default function Productos() {
-  const { categoriaActual, handleClickModalCrearProducto, modalCrearProducto } = useProductos();
+  const { categoriaActual, handleClickModalCrearProducto, modalCrearProducto, handleCrearProducto } = useProductos();
   const { user } = useAuth({ middleware: "auth" });
 
   //consulta SWR
@@ -34,6 +34,9 @@ export default function Productos() {
   const productos = data.data.filter(
     (producto) => producto.categoria_id === categoriaActual.id
   );
+
+
+
 
   return (
     <>

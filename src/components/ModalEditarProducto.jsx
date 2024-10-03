@@ -1,33 +1,42 @@
 import React from "react";
 import { useState } from "react";
 import useProductos from "../hooks/useProductos";
+import { useEffect } from "react";
 
-export default function ModalAgregarProducto() {
-  const { handleCrearProducto } = useProductos();
+export default function ModalEditarProducto({productoEdicion}) {
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
   const [imagen, setImagen] = useState("");
   const [categoria_id, setCategoriaId] = useState("");
+  const { handleEditarProductoDB } = useProductos();
+
+  useEffect(() => {
+    if (productoEdicion) {
+        setNombre(productoEdicion.nombre);
+        setPrecio(productoEdicion.precio);
+        setImagen(productoEdicion.imagen);
+        setCategoriaId(productoEdicion.categoria_id);
+    }
+  }, [productoEdicion]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const productoNuevo = {
+      id : productoEdicion.id,
       nombre,
       precio,
       imagen,
       categoria_id,
-    }
-    handleCrearProducto(productoNuevo);
+    };
+    handleEditarProductoDB(productoNuevo);
   };
   return (
-    //modal que se abrira a clickear en Crear Producto y permitira agregar un nuevo producto con nombre, precio e imagen
     <div className="md:flex gap-10">
       <div className="">
-        
         <form onSubmit={handleSubmit}>
-          <p
-          className="text-2xl font-bold text-gray-700 text-center"
-          >CREAR NUEVO PRODUCTO</p>
+          <p className="text-2xl font-bold text-gray-700 text-center">
+            EDITAR PRODUCTO
+          </p>
           <div>
             <label className="block text-xl font-medium text-gray-700">
               Nombre
@@ -75,14 +84,16 @@ export default function ModalAgregarProducto() {
               className="mt-1 block w-full border-2 border-gray-200 rounded p-2"
               required
             />
-            <p>(1 - Indumentaria, 2 - Baloines , 3 - Botines, 4 - Guantes, 5 - canilleras, 6 - Accesorios)</p>
+            <p>
+              (1 - Indumentaria, 2 - Baloines , 3 - Botines, 4 - Guantes, 5 -
+              canilleras, 6 - Accesorios)
+            </p>
           </div>
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
-
           >
-            Crear Producto
+            Editar Producto
           </button>
         </form>
       </div>

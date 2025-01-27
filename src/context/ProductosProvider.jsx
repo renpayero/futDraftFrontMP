@@ -83,6 +83,7 @@ const ProductosProvider = ({ children }) => {
             toast.success("Producto agregado", {
               position: "top-right",
               autoClose: 2000,
+              onClose: () => toast.clearWaitingQueue(),
             });
           }
     }
